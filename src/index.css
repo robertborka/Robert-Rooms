@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: aliceblue;
 }
 
 code {
@@ -30,14 +31,28 @@ code {
 
 .smallimg{
   height: 300px;
-  width: 300px !important ;
-  
+  width: 100% !important ;
+  border-radius: 5px !important;
+ 
 }
 
 h1{
 
   font-size: 20px !important;
   margin-top: 5%;
+}
+
+.btn{
+  background-color: black !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.box-shadow{
+  box-shadow: rgba(215, 213, 213, 0.35) 0px 5px 15px;
+  background-color:rgb(2, 13, 23);
+  height: 310px;
+
 }
 
 

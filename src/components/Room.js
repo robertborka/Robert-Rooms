@@ -3,7 +3,7 @@ import React from "react";
 function Room ({room})
 {
     return (
-        <div className='row'>
+        <div className='row box-shadow'>
             <div className="col-md-4">
                 <img src={room.imageurls[0]} className='smallimg'/>
             </div>
@@ -12,6 +12,11 @@ function Room ({room})
                 <p>Max Count : {room.maxcount}</p>
                 <p>Phone Number : {room.phonenumber}</p>
                 <p>Type : {room.type}</p>
+
+                <div style={{float: 'right'}}>
+                    <button className='btn btn-primary'> View Details</button>
+                </div>
+
             </div>
            
         </div>

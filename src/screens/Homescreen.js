@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import Room from '../components/Room';
 
 function Homescreen() {
-    const [rooms, setrooms] = useState([]);
-    const [loading, setloading] = useState()
-    const [error, seterror] = useState()
+    const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setloading(true)
+                setLoading(true);
                 const response = await axios.get('/api/rooms/getallrooms');
-
-                setrooms(response.data)
-                setloading(false)
+                setRooms(response.data);
+                setLoading(false);
             } catch (error) {
-                seterror(true)
-                console.log(error)
-                setloading(false)
+                setError(true);
+                console.log(error);
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, []); // 
+    }, []);
 
     return (
         <div>
-
-            {loading ? (<h1>Loading....</h1>) : error ? (<h1>Error</h1>) : (rooms.map(room => {
-
-                return <h1>{room.name}</h1>
-
-            }))}
-
+            <div className="row">
+                {loading ? (
+                    <h1>Loading....</h1>
+                ) : error ? (
+                    <h1>Error</h1>
+                ) : (
+                    rooms.map(room => {
+                        return <div className="col-md-9">
+                            <Room room={room}/>
+                        </div>
+                    })
+                )}
+            </div>
         </div>
     );
 }

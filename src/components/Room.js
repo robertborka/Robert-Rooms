@@ -12,6 +12,7 @@ function Room ({room})
                 <p>Max Count : {room.maxcount}</p>
                 <p>Phone Number : {room.phonenumber}</p>
                 <p>Type : {room.type}</p>
+                <p>Description : {room.description}</p>
 
                 <div style={{float: 'right'}}>
                     <button className='btn btn-primary'> View Details</button>

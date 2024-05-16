@@ -34,7 +34,7 @@ function Homescreen() {
                 ) : (
                     rooms.map(room => {
                         return <div className="col-md-9 mt-2">
-                            <Room room={room}/>
+                            <Room room={room} />
                         </div>
                     })
                 )}

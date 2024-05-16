@@ -1,6 +1,10 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 function Room({ room }) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div className='row box-shadow'>
             <div className="col-md-4">
@@ -15,11 +19,25 @@ function Room({ room }) {
                     <p>Type : {room.type}</p>
                     <p>Description : {room.description}</p>
                 </b>
-                <div style={{ float: 'right' }}>
-                    <button className='btn btn-primary'> View Details</button>
+                <div style={{ float: "right" }}>
+                    <button className="btn btn-primary" onClick={handleShow}> View Details</button>
                 </div>
 
             </div>
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{room.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                   
+                </Modal.Footer>
+            </Modal>
 
         </div>
     )

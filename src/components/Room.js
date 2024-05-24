@@ -26,7 +26,7 @@ function Room({ room }) {
 
                     <button className="btn btn-primary m-2">Book Now</button>
                     </Link>
-                    <button className="btn btn-primary" onClick={handleShow}> View Details</button>
+                    <button className="btn btn-primary" onClick={handleShow}>View Details</button>
                 </div>
 
             </div>

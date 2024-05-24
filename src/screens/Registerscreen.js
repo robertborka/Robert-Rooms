@@ -18,7 +18,7 @@ function Registersceen() {
             console.log(user)
         }
         else
-        alert('Password not matched')
+        alert('Password does not matched')
     }
 
 

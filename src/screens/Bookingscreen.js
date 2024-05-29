@@ -18,12 +18,13 @@ function Bookingscreen() {
     console.log("To date:", todateMoment);
     const totaldays = todateMoment.diff(fromdateMoment, 'days');
 
-    const totalamount = room ? totaldays * room.rentperday : null;
+    const totalamount = room ? totaldays * room.rentperday : null; 
 
     
     useEffect(() => {
         const fetchRoom = async () => {
             try {
+                setLoading(true)
                 const response = await axios.post("/api/rooms/getroombyid", { roomid });
                 setRoom(response.data);
                 setLoading(false);
@@ -45,6 +46,23 @@ function Bookingscreen() {
         return <Error/>
     }
 
+    async function bookRoom(){
+        const bookingDetails = {
+            room,
+            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+            fromdate,
+            todate,
+            totalamount,
+            totaldays
+        }
+        try{
+            const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+
+        }catch(error){
+
+        }
+
+    }
     return (
         <div className="m-5">
             {room ? (
@@ -76,7 +94,7 @@ function Bookingscreen() {
                         </div>
 
                         <div style={{ float: 'right' }}>
-                            <button className="btn btn-primary">Pay Now</button>
+                            <button className="btn btn-primary" onClick={bookRoom}>Pay Now</button>
                         </div>
                     </div>
                 </div>

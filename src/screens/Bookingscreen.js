@@ -76,7 +76,7 @@ function Bookingscreen() {
                             <h1>Booking Details</h1>
                             <hr />
                             <b>
-                                <p>Name : </p>
+                                <p>Name : {JSON.parse(localStorage.getItem('currentUser')).name} </p>
                                 <p>From Date : {fromdate} </p> 
                                 <p>To Date : {todate} </p> 
                                 <p>Max Count : {room.maxcount}</p>

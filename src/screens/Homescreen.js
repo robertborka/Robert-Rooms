@@ -59,9 +59,6 @@ function Homescreen() {
         setRooms(filteredRooms);
     }
     
-    
-
-
     return (
         <div className='container'>
 

@@ -4,10 +4,7 @@ import Room from '../components/Room';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 import { DatePicker, Space } from 'antd';
-
-
-
-
+import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
@@ -17,6 +14,7 @@ function Homescreen() {
     const [error, setError] = useState(false);
     const [fromdate, setfromdate] = useState();
     const [todate, settodate] = useState();
+    const [duplicaterooms, setduplicaterooms] = useState([]);
 
 
     useEffect(() => {
@@ -25,6 +23,7 @@ function Homescreen() {
                 setLoading(true);
                 const response = await axios.get('/api/rooms/getallrooms');
                 setRooms(response.data);
+                setduplicaterooms(response.data)
                 setLoading(false);
             } catch (error) {
                 setError(true);
@@ -37,16 +36,30 @@ function Homescreen() {
     }, []);
 
     function filterByDate(dates) {
-
-        console.log((dates[0].format('DD-MM-YYYY')))
-        console.log((dates[1].format('DD-MM-YYYY')))
-        setfromdate((dates[0].format('DD-MM-YYYY')))
-        settodate((dates[1].format('DD-MM-YYYY')))
-
-
-
-
+        const fromDate = dates[0] ? dates[0].format('DD-MM-YYYY') : null;
+        const toDate = dates[1] ? dates[1].format('DD-MM-YYYY') : null;
+    
+        setfromdate(fromDate);
+        settodate(toDate);
+    
+        const filteredRooms = duplicaterooms.filter(room => {
+            const overlappingBookings = room.currentbookings.some(booking => {
+                const bookingFromDate = moment(booking.fromdate, 'DD-MM-YYYY').format('DD-MM-YYYY');
+                const bookingToDate = moment(booking.todate, 'DD-MM-YYYY').format('DD-MM-YYYY');
+                const isOverlapping =
+                    (bookingFromDate <= fromDate && bookingToDate >= fromDate) ||
+                    (bookingFromDate <= toDate && bookingToDate >= toDate) ||
+                    (bookingFromDate >= fromDate && bookingToDate <= toDate);
+                return isOverlapping;
+            });
+    
+            return !overlappingBookings;
+        });
+    
+        setRooms(filteredRooms);
     }
+    
+    
 
 
     return (

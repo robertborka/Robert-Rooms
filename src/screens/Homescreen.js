@@ -15,6 +15,9 @@ function Homescreen() {
     const [fromdate, setfromdate] = useState();
     const [todate, settodate] = useState();
     const [duplicaterooms, setduplicaterooms] = useState([]);
+    const [searchkey, setsearchkey] = useState('');
+    const [type, settype]=useState('all');
+
 
 
     useEffect(() => {
@@ -58,15 +61,53 @@ function Homescreen() {
     
         setRooms(filteredRooms);
     }
+
+    function filterBySearch(){
+
+        const tepmrooms = duplicaterooms.filter(room => room.name.toLowerCase().includes(searchkey.toLowerCase()))
+
+        setRooms(tepmrooms);
+
+    }
+
+    function filterByType(e){
+
+        settype(e)
+
+        if(e!=='all'){
+            const tepmrooms = duplicaterooms.filter(room => room.type.toLowerCase()==e.toLowerCase())
+
+        setRooms(tepmrooms);
+        }
+        else{
+            setRooms(duplicaterooms);
+        }
+
+    }
     
     return (
         <div className='container'>
 
-            <div className='row mt-5'>
+            <div className='row mt-5 box-shadow'>
 
                 <div className='col-md-3'>
                     <RangePicker format='DD-MM-YYYY' onChange={filterByDate} />
 
+                </div>
+                <div className='col-md-5'>
+                    <input type='text' className='form-control' placeholder='search rooms'
+                    value={searchkey} onChange={(e)=>{setsearchkey(e.target.value)}} onKeyUp={filterBySearch}
+                    />
+
+                </div>
+
+                <div>
+
+                <select className='form-control' value={type} onChange={(e)=>{filterByType(e.target.value)}}>
+                    <option value="all">All</option>
+                    <option value="delux">Delux</option>
+                    <option value="non-delux">Non-Delux</option>
+                </select>
                 </div>
 
             </div>
@@ -76,16 +117,14 @@ function Homescreen() {
             <div className="row justify-content-center mt-5">
                 {loading ? (
                     <Loader />
-                ) : rooms.length > 1 ? (
+                ) : (
                     rooms.map(room => {
                         return <div className="col-md-9 mt-3">
                             <Room room={room} fromdate={fromdate} todate={todate} />
                         </div>
+                    
                     })
-                ) : (
-                    <Error />
-
-                )}
+                ) }
             </div>
         </div>
     );

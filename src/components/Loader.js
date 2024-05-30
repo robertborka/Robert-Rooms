@@ -13,7 +13,7 @@ function Loader() {
                 color= '#red'
                 loading={loading}
                 css=''
-                size={80}
+                size={100}
             />
         </div>
 

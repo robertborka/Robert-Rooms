@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from 'react-stripe-checkout';
+import Swal from "sweetalert2";
 
 function Bookingscreen() {
     const { roomid, fromdate, todate } = useParams();
@@ -59,9 +60,16 @@ function Bookingscreen() {
             token
         }
         try {
+            setLoading(true);
             const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+            setLoading(false);
+            Swal.fire('Congratulations', 'Your Room is Booked Successfully', 'success').then(result=>{
+                window.location.href='/bookings'
+            })
 
-        } catch (error) {
+        } catch (error) { 
+            setLoading(false)
+            Swal.fire('Oops...', 'Something went wrong', 'error')
 
         }
     }

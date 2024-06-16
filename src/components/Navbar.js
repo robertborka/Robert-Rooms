@@ -4,14 +4,14 @@ function Navbar() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     function logout() {
         localStorage.removeItem('currentUser')
-        window.location.href='/login'
+        window.location.href = '/login'
     }
     return (
         <div>
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="/home">ROBERT ROOMS</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-ico"><i class="fa fa-bars" style={{color:'white'}}></i></span>
+                    <span class="navbar-toggler-ico"><i class="fa fa-bars" style={{ color: 'white' }}></i></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-5">
@@ -22,9 +22,9 @@ function Navbar() {
                                         <i className='fa fa-user'></i>{user.name}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/bookings">Bookings</a>
+                                        <a class="dropdown-item" href="/profile">Profile</a>
                                         <a class="dropdown-item" href="#" onClick={logout}>Logout</a>
-                                        
+
                                     </div>
                                 </div>
                             </>) : (<>

@@ -24,6 +24,9 @@ function Bookingscreen() {
 
 
     useEffect(() => {
+        if(!localStorage.getItem('currentUser')){
+            window.location.reload='login'
+        }
         const fetchRoom = async () => {
             try {
                 setLoading(true)

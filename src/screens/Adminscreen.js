@@ -5,6 +5,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import { max } from "moment";
+import Swal from "sweetalert2";
 
 function Adminscreen() {
 
@@ -216,6 +217,8 @@ export function Users() {
 
 export function Addroom() {
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
     const [name, setname] = useState('')
     const [rentperday, setrentperday] = useState()
     const [maxcount, setmaxcount] = useState()
@@ -226,31 +229,40 @@ export function Addroom() {
     const [imageurl2, setimageurl2] = useState()
     const [imageurl3, setimageurl3] = useState()
 
-    function addRoom(){
+    async function addRoom() {
 
-        const newroom={
+        const newroom = {
             name,
             rentperday,
             maxcount,
             description,
             phonenumber,
             type,
-            imageurls:[imageurl1,imageurl2,imageurl3]
+            imageurls: [imageurl1, imageurl2, imageurl3]
         }
-        
-        console.log(newroom);
 
+        try {
+            setLoading(true)
+            const result = await (await axios.post('/api/rooms/addroom', newroom)).data
+            console.log(result)
+            setLoading(false)
+            Swal.fire('Congrats', "Your New Room Added Succesfully", 'success').then(result => {
+                window.location.href = '/home'
+            })
+
+
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+            Swal.fire('Oops', "Something went wrong", 'error')
+
+        }
     }
-
-
-
-
-
-
 
     return (
         <div className="row">
             <div className="col-md-5">
+                {loading && <Loader />}
 
                 <input type="text" className="form-control" placeholder="room name"
                     value={name} onChange={(e) => { setname(e.target.value) }}

@@ -35,6 +35,7 @@ function Registersceen() {
                 setemail('')
                 setpassword('')
                 setcpassword('')
+                window.location.href = '/login'
 
             } catch (error) {
                 console.log(error);

@@ -41,7 +41,7 @@ function Logginscreen() {
                 <div className="col-md-5 mt-5">
                     {error && (<Error message='Invalid credentials'/>)}
                     <div className="box-shadow">
-                        <h2>Loggin</h2>
+                        <h2>Login</h2>
 
                         <input type="text" className="form-control" placeholder="email"
                             value={email} onChange={(e) => { setemail(e.target.value) }} />

@@ -49,7 +49,7 @@ function Logginscreen() {
                             value={password} onChange={(e) => { setpassword(e.target.value) }} />
 
 
-                        <button className="btn btn-primary mt-3" onClick={Loggin}>Loggin</button>
+                        <button className="btn btn-primary mt-3" onClick={Loggin}>Login</button>
 
                     </div>
 
